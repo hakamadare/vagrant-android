@@ -82,7 +82,7 @@ Vagrant.configure(2) do |config|
   # SHELL
 
   # Provision with Puppet.
-  config.vm.provision :puppet do |puppet|
+  config.vm.provision :puppet, :run => 'always' do |puppet|
     puppet.manifests_path = 'manifests'
     puppet.manifest_file = 'init.pp'
     # puppet.hiera_config_path = 'hiera.yaml'
