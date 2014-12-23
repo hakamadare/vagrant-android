@@ -8,10 +8,10 @@ node default {
   $build_tools = prefix('build-tools-', $::android_build_tools)
 
   # Install JDK
-  class { 'java': } ->
+  class { 'java': distribution => 'jdk' } ->
 
   # Install Android SDK
-  class { 'android': } ->
+  class { 'android': install_dir => '/opt/android' } ->
 
   # Install platform and build tools
   android::platform { $platforms: } ->
