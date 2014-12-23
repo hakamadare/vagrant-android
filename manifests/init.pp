@@ -4,17 +4,18 @@ node default {
   stage { ['pre', 'post']: }
   Stage['pre'] -> Stage['main'] -> Stage['post']
 
-  # Install text editors
-  package { 'vim-enhanced': ensure => installed }
-  package { 'emacs':        ensure => installed }
+  $platforms   = prefix('android-', $::android_platforms)
+  $build_tools = prefix('build-tools-', $::android_build_tools)
 
-  # Declare the Harvard class for a Harvard look and feel
-  class { 'harvard': }
+  # Install JDK
+  class { 'java': } ->
 
-  # Install and run Apache with its default configuration
-  class { 'apache':
-    default_vhost => true,
-    keepalive     => true,
-  }
+  # Install Android SDK
+  class { 'android': } ->
+
+  # Install platform and build tools
+  android::platform { $platforms: } ->
+  android::build_tools { $build_tools: }
+
 }
 # vim: set ft=puppet ts=2 sw=2 ei:

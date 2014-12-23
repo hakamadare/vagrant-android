@@ -1,2 +1,7 @@
-# Default Hiera values for Puppet
---- {}
+---
+java::distribution: "jdk"
+android::install_dir: "/opt/android"
+android_platforms:
+  - "21"
+android_build_tools:
+  - "21.1.2"

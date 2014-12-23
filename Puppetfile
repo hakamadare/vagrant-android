@@ -1,5 +1,10 @@
 forge "http://forge.puppetlabs.com"
 
-mod 'puppetlabs/apache'
-mod 'harvard',
-  :git => 'https://github.com/huit/puppet-harvard.git'
+mod 'puppetlabs/stdlib'
+mod 'puppetlabs/java'
+
+mod 'android',
+  :git => "https://github.com/hakamadare/puppet-android.git",
+  :ref => "component_version_management"
+
+
