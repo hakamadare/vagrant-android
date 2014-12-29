@@ -5,7 +5,22 @@ FORGE
       puppetlabs-stdlib (>= 2.4.0)
     puppetlabs-stdlib (4.5.0)
 
+FORGE
+  remote: https://forge.puppetlabs.com
+  specs:
+    maestrodev-wget (1.5.7)
+
+GIT
+  remote: https://github.com/hakamadare/puppet-android.git
+  ref: component_version_management
+  sha: bb5d3b30ef4c00779a0457a7ada2f2f10a73b78a
+  specs:
+    android (1.2.1)
+      maestrodev-wget (>= 1.0.0)
+      puppetlabs-stdlib (>= 3.2.0)
+
 DEPENDENCIES
+  android (>= 0)
   puppetlabs-java (>= 0)
   puppetlabs-stdlib (>= 0)
 

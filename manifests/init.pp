@@ -4,14 +4,19 @@ node default {
   stage { ['pre', 'post']: }
   Stage['pre'] -> Stage['main'] -> Stage['post']
 
-  $platforms   = prefix('android-', $::android_platforms)
-  $build_tools = prefix('build-tools-', $::android_build_tools)
+  # quash an annoying warning
+  Package {
+    allow_virtual => true
+  }
 
   # Install JDK
-  class { 'java': distribution => 'jdk' } ->
+  class { 'java': } ->
 
   # Install Android SDK
-  class { 'android': install_dir => '/opt/android' } ->
+  class { 'android': }
+
+  $platforms   = prefix(hiera('android_platforms'), 'android-')
+  $build_tools = prefix(hiera('android_build_tools'), 'build-tools-')
 
   # Install platform and build tools
   android::platform { $platforms: } ->

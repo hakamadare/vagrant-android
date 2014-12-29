@@ -1,6 +1,6 @@
 ---
 java::distribution: "jdk"
-android::install_dir: "/opt/android"
+android::installdir: "/opt/android"
 android_platforms:
   - "21"
 android_build_tools:
