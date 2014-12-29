@@ -73,6 +73,9 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
 
   # Provision with Puppet.
+  config.vm.provision :shell, inline: 'yum -y update'
+
+  # Provision with Puppet.
   config.vm.provision :puppet, :run => 'always' do |puppet|
     puppet.manifests_path = 'manifests'
     puppet.manifest_file = 'init.pp'
