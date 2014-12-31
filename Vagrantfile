@@ -27,12 +27,15 @@ Vagrant.configure(2) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network :private_network, ip: "172.16.10.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network "public_network"
+
+  # Vagrant hosts-updater
+  config.vm.hostname = "android.dev"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -56,6 +59,17 @@ Vagrant.configure(2) do |config|
   # View the documentation for the provider you are using for more
   # information on available options.
 
+  # For VMware:
+  config.vm.provider "vmware_fusion" do |fusion|
+    # Ensure that VMWare Tools recompiles kernel modules
+    # when we update the linux images
+    $fix_vmware_tools_script = <<SCRIPT
+sed -i.bak 's/answer AUTO_KMODS_ENABLED_ANSWER no/answer AUTO_KMODS_ENABLED_ANSWER yes/g' /etc/vmware-tools/locations
+sed -i.bak 's/answer AUTO_KMODS_ENABLED no/answer AUTO_KMODS_ENABLED yes/g' /etc/vmware-tools/locations
+SCRIPT
+
+    config.vm.provision :shell, inline: $fix_vmware_tools_script
+  end
 
 
   # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
@@ -72,7 +86,8 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
 
-  # Provision with Puppet.
+  # Provision with shell.
+  config.vm.provision :shell, inline: 'yum -y install yum-presto'
   config.vm.provision :shell, inline: 'yum -y update'
 
   # Provision with Puppet.
