@@ -27,15 +27,12 @@ Vagrant.configure(2) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network :private_network, ip: "172.16.10.10"
+  # config.vm.network :private_network, ip: "172.16.10.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network "public_network"
-
-  # Vagrant hosts-updater
-  config.vm.hostname = "android.dev"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
